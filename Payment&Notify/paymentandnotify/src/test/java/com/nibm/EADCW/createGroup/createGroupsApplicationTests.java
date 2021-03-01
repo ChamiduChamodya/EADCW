@@ -1,10 +1,10 @@
-package com.nibm.EADCW.paymentandnotify;
+package com.nibm.EADCW.createGroup;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PaymentandnotifyApplicationTests {
+class createGroupsApplicationTests {
 
 	@Test
 	void contextLoads() {
