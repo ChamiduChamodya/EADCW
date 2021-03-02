@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PoolRepository extends JpaRepository<PoolData, Integer> {
-    @Query("select u from PoolData u where u.groupId=?1")
+    @Query("select p from PoolData p where p.groupId=?1")
     List<PoolData> findPoolDataById(String groupId);
 }

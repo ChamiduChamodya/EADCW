@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserGroupRepository extends JpaRepository<UserGroups, Integer > {
+public interface UserGroupRepository extends JpaRepository<UserGroups, Integer> {
     @Query("select u from UserGroups u where u.id=?1")
     List<UserGroups> findUserGroupById(int id);
 }
