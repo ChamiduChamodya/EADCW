@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nibm.EADCW</groupId>
-	<artifactId>paymentandnotify</artifactId>
+	<artifactId>createGroups</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>paymentandnotify</name>
-	<description>Payment and notification for EAD CW</description>
+	<name>createGroups</name>
+	<description>create Groups for EAD CW</description>
 
 	<properties>
 		<java.version>1.8</java.version>
