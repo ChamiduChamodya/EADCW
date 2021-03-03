@@ -61,15 +61,11 @@ public class userController {
     public userAccountDetails setUserAccountDetails(@RequestBody userAccountDetails accountDetails) {
 //        System.out.println("Email:"+accountDetails.getEmail());
 //        System.out.println("name:"+accountDetails.getUsername());
-//        System.out.println("add1:"+accountDetails.getAddresLine1());
-//        System.out.println("add2:"+accountDetails.getAddresLine2());
-//        System.out.println("pcode:"+accountDetails.getPostalCode());
-//        System.out.println("aType:"+accountDetails.getUserAccountType());
-//        System.out.println("age:"+accountDetails.getUserAge());
 //        System.out.println("city:"+accountDetails.getUserCity());
-
+//        System.out.println("tel:"+accountDetails.getTel_no());
 
         return this.accountDetailsRepo.save(accountDetails);
+//        return null;
     }
 
     //set account username and pass
@@ -79,6 +75,7 @@ public class userController {
 //        System.out.println("username:"+account.getUsername());
 //        System.out.println("pass:"+account.getPassword());
         return this.accountRepo.save(account);
+//        return null;
     }
 
     @PutMapping("/updatePass/{username}")

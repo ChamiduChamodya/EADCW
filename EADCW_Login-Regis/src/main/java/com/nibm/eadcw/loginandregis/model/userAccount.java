@@ -13,10 +13,10 @@ public class userAccount {
     private userAccountDetails accountDetails;
 
     @Id
-    @Column(name = "email")
-    private String email;
     @Column(name = "username")
     private String username;
+    @Column(name = "email")
+    private String email;
     @Column(name = "password")
     private String password;
 

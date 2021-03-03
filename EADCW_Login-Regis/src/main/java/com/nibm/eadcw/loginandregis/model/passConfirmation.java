@@ -11,7 +11,4 @@ public class passConfirmation {
         return passwordConfirmation;
     }
 
-    public void setPasswordConfirmation(String passwordConfirmation) {
-        this.passwordConfirmation = passwordConfirmation;
-    }
 }
