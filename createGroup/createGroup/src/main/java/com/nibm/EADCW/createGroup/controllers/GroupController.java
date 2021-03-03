@@ -38,6 +38,22 @@ public class GroupController {
         }
     }
 
+    @GetMapping(path = "/group/username/{username}")
+    public List<CreateGroups> getGroupIdByUname(@PathVariable String username) {
+        try {
+            List<CreateGroups> groups = groupRepository.findGroupIdByUname(username);
+            if (!groups.isEmpty()) {
+                return groups;
+            } else {
+                System.out.println("no");
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
     @PostMapping(path = "/group")
     public ResponseEntity<JsonNode> createGroup(@RequestBody CreateGroups createGroups) throws JsonProcessingException {
         try {

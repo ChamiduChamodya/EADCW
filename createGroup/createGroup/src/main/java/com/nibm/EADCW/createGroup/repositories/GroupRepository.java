@@ -11,4 +11,7 @@ import java.util.List;
 public interface GroupRepository extends JpaRepository<CreateGroups, Integer> {
     @Query("select g from CreateGroups g where g.id=?1")
     List<CreateGroups> findGroupById(int id);
+
+    @Query("select g from CreateGroups g where g.username=?1")
+    List<CreateGroups> findGroupIdByUname(String id);
 }
