@@ -42,7 +42,6 @@ public class PoolDataController {
     @PostMapping("/pooldata")
     public ResponseEntity<JsonNode> createNutrientList(@RequestBody Map<String, Object> requestBody) throws JsonProcessingException {
         try{
-            System.out.println(requestBody.size());
             PoolData poolData;
             for (int i = 0; i < requestBody.size() - 2; i++) {
                 poolData = new PoolData(requestBody.get("username").toString(), requestBody.get("id").toString(), requestBody.get(String.valueOf(i)).toString());

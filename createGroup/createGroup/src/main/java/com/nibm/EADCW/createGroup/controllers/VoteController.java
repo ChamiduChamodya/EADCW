@@ -3,31 +3,32 @@ package com.nibm.EADCW.createGroup.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nibm.EADCW.createGroup.repositories.GroupRepository;
-import com.nibm.EADCW.createGroup.models.CreateGroups;
+import com.nibm.EADCW.createGroup.models.Vote;
+import com.nibm.EADCW.createGroup.repositories.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-public class GroupController {
+public class VoteController {
 
     @Autowired
-    private GroupRepository groupRepository;
+    private VoteRepository voteRepository;
 
-    @GetMapping("/group/ping")
+    @GetMapping("/vote/ping")
     public String ping() {
         return "pong";
     }
 
-    @GetMapping(path = "/group/id/{id}")
-    public List<CreateGroups> getGroupById(@PathVariable int id) {
+    @GetMapping(path = "/vote/{id}")
+    public List<Vote> getGroupById(@PathVariable String id) {
         try {
-            List<CreateGroups> groups = groupRepository.findGroupById(id);
-            if (!groups.isEmpty()) {
-                return groups;
+            List<Vote> votes = voteRepository.findVotesById(id);
+            if (!votes.isEmpty()) {
+                return votes;
             } else {
                 System.out.println("no");
                 return null;
@@ -38,12 +39,12 @@ public class GroupController {
         }
     }
 
-    @GetMapping(path = "/group/username/{username}")
-    public List<CreateGroups> getGroupIdByUname(@PathVariable String username) {
+    @GetMapping(path = "/vote/username/{username}")
+    public List<Vote> getGroupIdByUname(@PathVariable String username) {
         try {
-            List<CreateGroups> groups = groupRepository.findGroupIdByUname(username);
-            if (!groups.isEmpty()) {
-                return groups;
+            List<Vote> votes = voteRepository.findVotesByUname(username);
+            if (!votes.isEmpty()) {
+                return votes;
             } else {
                 System.out.println("no");
                 return null;
@@ -54,10 +55,14 @@ public class GroupController {
         }
     }
 
-    @PostMapping(path = "/group")
-    public ResponseEntity<JsonNode> createGroup(@RequestBody CreateGroups createGroups) throws JsonProcessingException {
+    @PostMapping("/vote")
+    public ResponseEntity<JsonNode> createNutrientList(@RequestBody Map<String, Object> requestBody) throws JsonProcessingException {
         try {
-            groupRepository.save(createGroups);
+            Vote vote;
+            for (int i = 0; i < requestBody.size() - 2; i++) {
+                vote = new Vote(requestBody.get("id").toString(), requestBody.get("username").toString(), requestBody.get(String.valueOf(i)).toString());
+                voteRepository.save(vote);
+            }
             ObjectMapper mapper = new ObjectMapper();
             JsonNode json = mapper.readTree("{\"result\": \"successful\"}");
             return ResponseEntity.ok(json);
