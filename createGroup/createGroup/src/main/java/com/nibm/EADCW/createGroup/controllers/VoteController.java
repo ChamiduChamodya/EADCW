@@ -39,6 +39,7 @@ public class VoteController {
         }
     }
 
+    //Get voted pools to Group Details
     @GetMapping(path = "/vote/username/{username}")
     public List<Vote> getGroupIdByUname(@PathVariable String username) {
         try {
@@ -55,6 +56,7 @@ public class VoteController {
         }
     }
 
+    //Save New Voted Pool Data
     @PostMapping("/vote")
     public ResponseEntity<JsonNode> createNutrientList(@RequestBody Map<String, Object> requestBody) throws JsonProcessingException {
         try {

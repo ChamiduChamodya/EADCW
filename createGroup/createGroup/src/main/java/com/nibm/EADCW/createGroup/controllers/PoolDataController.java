@@ -23,6 +23,8 @@ public class PoolDataController {
         return "pong";
     }
 
+    //Get Pool Data to New Vote
+    //Get Pool data to Group Details
     @GetMapping(path = "/pooldata/{groupId}")
     public List<PoolData> getPoolDataById(@PathVariable String groupId) {
         try {
@@ -39,6 +41,7 @@ public class PoolDataController {
         }
     }
 
+    //Save created Group Pool Data
     @PostMapping("/pooldata")
     public ResponseEntity<JsonNode> createNutrientList(@RequestBody Map<String, Object> requestBody) throws JsonProcessingException {
         try{

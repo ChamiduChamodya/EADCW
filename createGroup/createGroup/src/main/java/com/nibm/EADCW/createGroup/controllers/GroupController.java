@@ -22,6 +22,9 @@ public class GroupController {
         return "pong";
     }
 
+    //Get Basic Data to New Vote
+    //Get Basic Data to Group Details
+    //Get Basic Data to Home/Join Group
     @GetMapping(path = "/group/id/{id}")
     public List<CreateGroups> getGroupById(@PathVariable int id) {
         try {
@@ -38,6 +41,7 @@ public class GroupController {
         }
     }
 
+    //Get Basic Data to View My Groups
     @GetMapping(path = "/group/username/{username}")
     public List<CreateGroups> getGroupIdByUname(@PathVariable String username) {
         try {
@@ -54,6 +58,7 @@ public class GroupController {
         }
     }
 
+    //Save created Group Basic Data
     @PostMapping(path = "/group")
     public ResponseEntity<JsonNode> createGroup(@RequestBody CreateGroups createGroups) throws JsonProcessingException {
         try {

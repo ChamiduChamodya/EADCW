@@ -22,6 +22,9 @@ public class UserVoteController {
         return "pong";
     }
 
+
+    //Check is Voted to New Vote
+    //Get voted userNames to Group Details
     @GetMapping(path = "/uservote/{id}")
     public List<UserVote> getGroupById(@PathVariable String id) {
         try {
@@ -38,6 +41,7 @@ public class UserVoteController {
         }
     }
 
+    //Get Voted Data to View My Votes
     @GetMapping(path = "/uservote/username/{username}")
     public List<UserVote> getGroupByUname(@PathVariable String username) {
         try {
@@ -54,6 +58,8 @@ public class UserVoteController {
         }
     }
 
+
+    //Get Total Votes Count to Group Details
     @GetMapping(path = "/uservote/count/{id}")
     public ResponseEntity<JsonNode> getVoteCountById(@PathVariable String id) throws JsonProcessingException {
         int count = 0;
@@ -77,6 +83,7 @@ public class UserVoteController {
         }
     }
 
+    //Save New Voted Username and ID
     @PostMapping(path = "/uservote")
     public ResponseEntity<JsonNode> createGroup(@RequestBody UserVote userVote) throws JsonProcessingException {
         try {
