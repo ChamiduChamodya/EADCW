@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface userAccountRepo extends JpaRepository<userAccount,String> {
 
-    @Query(value = "SELECT u.password FROM userAccount u WHERE u.email = ?1 ")
-    String getPasswordByEmail(String email);
+    @Query(value = "SELECT u.password FROM userAccount u WHERE u.username = ?1 ")
+    String getPasswordByUsername(String email);
+
+    @Query(value = "UPDATE userAccount u SET u.password = ?2 WHERE u.username = ?1 ")
+    void updatePassword(String user,String pass);
 }

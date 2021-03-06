@@ -1,18 +1,14 @@
 package com.nibm.eadcw.loginandregis.controller;
 
-import com.nibm.eadcw.loginandregis.model.passConfirmation;
-import com.nibm.eadcw.loginandregis.model.userAccount;
-import com.nibm.eadcw.loginandregis.model.userAccountDetails;
+import com.nibm.eadcw.loginandregis.model.*;
 import com.nibm.eadcw.loginandregis.repository.userAccountDetailsRepo;
 import com.nibm.eadcw.loginandregis.repository.userAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -37,11 +33,11 @@ public class userController {
 //        System.out.println("Email:"+account.getEmail());
 //        System.out.println("user:"+account.getUsername());
 //        System.out.println("pass:"+account.getPassword());
-        String passwordByEmail = accountRepo.getPasswordByEmail(account.getEmail().toString());
+        String passwordByUser = accountRepo.getPasswordByUsername(account.getUsername());
 //        System.out.println("****************************************");
 //        System.out.println("pass:"+account.getPassword());
 //        System.out.println("passfromdb:"+ passwordByEmail);
-            if (account.getPassword().toString().equals(passwordByEmail)){
+            if (account.getPassword().toString().equals(passwordByUser)){
                 passConfirmation confirmationOK = new passConfirmation("Confirmed");
                 return ResponseEntity.ok().body(confirmationOK);
             }else{
@@ -54,6 +50,19 @@ public class userController {
     @GetMapping("/userLogins")
     public List<userAccount> getAllAccountDetails() {
         return this.accountRepo.findAll();
+    }
+
+    //get tele no by user
+    @PostMapping(path = "userTele/")
+    public ResponseEntity<passModificationComfirmation> getTeleByuser(@RequestBody userAccount account){
+        String userTele = accountDetailsRepo.getTelefromUsername(account.getUsername());
+        if (!userTele.isEmpty()){
+            passModificationComfirmation comfirmationOK = new passModificationComfirmation(userTele);
+            return ResponseEntity.ok().body(comfirmationOK);
+        }else {
+            passModificationComfirmation confirmationDenied = new passModificationComfirmation("Denied");
+            return ResponseEntity.ok().body(confirmationDenied);
+        }
     }
 
     //set Account details
@@ -79,13 +88,12 @@ public class userController {
     }
 
     @PutMapping("/updatePass/{username}")
-    public RequestEntity<userAccount> setUserPass() {
-        return null;
+    public ResponseEntity<passModified> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
+//        System.out.println("Username"+ user);
+//        System.out.println("pass"+ account.getPassword());
+        accountRepo.updatePassword(user,account.getPassword());
+        passModified modified = new passModified("Changed");
+        return ResponseEntity.ok().body(modified);
     }
 
-    // get user by id
-    @GetMapping("/users/{name}")
-    public RequestEntity<userAccountDetails> getUserByName() {
-        return null;
-    }
 }
