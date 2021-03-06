@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserVoteController {
 
@@ -20,19 +22,58 @@ public class UserVoteController {
         return "pong";
     }
 
-    @GetMapping(path = "/uservote/count/{id}")
-    public int getVoteCountById(@PathVariable String id) {
+    @GetMapping(path = "/uservote/{id}")
+    public List<UserVote> getGroupById(@PathVariable String id) {
         try {
-            int count = userVoteRepository.findVoteCountById(id);
-            if (count != 0) {
-                return count;
+            List<UserVote> userVotes = userVoteRepository.findUserVotesById(id);
+            if (!userVotes.isEmpty()) {
+                return userVotes;
             } else {
                 System.out.println("no");
-                return 0;
+                return null;
             }
         } catch (Exception e) {
             System.out.println(e.toString());
-            return 0;
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/uservote/username/{username}")
+    public List<UserVote> getGroupByUname(@PathVariable String username) {
+        try {
+            List<UserVote> userVotes = userVoteRepository.findUserVotesByUname(username);
+            if (!userVotes.isEmpty()) {
+                return userVotes;
+            } else {
+                System.out.println("no");
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/uservote/count/{id}")
+    public ResponseEntity<JsonNode> getVoteCountById(@PathVariable String id) throws JsonProcessingException {
+        int count = 0;
+        ObjectMapper mapper = new ObjectMapper();
+        String newString = "{\"result\": \"" + count + "\"}";
+        JsonNode json = mapper.readTree(newString);
+        try {
+            count = userVoteRepository.findVoteCountById(id);
+            System.out.println(count);
+            String newString2 = "{\"result\": \"" + count + "\"}";
+            json = mapper.readTree(newString2);
+            if (count != 0) {
+                return ResponseEntity.ok(json);
+            } else {
+                System.out.println("no");
+                return ResponseEntity.ok(json);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return ResponseEntity.ok(json);
         }
     }
 
